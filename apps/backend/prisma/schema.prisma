@@ -1,0 +1,121 @@
+// =============================================================
+// Prisma Schema — Company Profile Database
+// All entities use UUID as Primary Key (PRD Section 4.1)
+// =============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ----- User / Admin -----
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  password  String
+  name      String
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  articles Article[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  EDITOR
+}
+
+// ----- Article / Blog -----
+model Article {
+  id         String        @id @default(uuid()) @db.Uuid
+  title      String
+  slug       String        @unique
+  content    String        @db.Text
+  excerpt    String        @db.VarChar(500)
+  coverImage String?       @map("cover_image")
+  category   ServiceCategory
+  tags       String[]      @default([])
+  status     ArticleStatus @default(DRAFT)
+  authorId   String        @map("author_id") @db.Uuid
+  createdAt  DateTime      @default(now()) @map("created_at")
+  updatedAt  DateTime      @updatedAt @map("updated_at")
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([category])
+  @@index([status])
+  @@index([slug])
+  @@map("articles")
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+// ----- Case Study / Portfolio -----
+model CaseStudy {
+  id         String          @id @default(uuid()) @db.Uuid
+  title      String
+  slug       String          @unique
+  client     String
+  industry   String
+  challenge  String          @db.Text
+  solution   String          @db.Text
+  impact     String          @db.Text
+  coverImage String?         @map("cover_image")
+  category   ServiceCategory
+  status     CaseStudyStatus @default(DRAFT)
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @updatedAt @map("updated_at")
+
+  @@index([category])
+  @@index([status])
+  @@index([slug])
+  @@map("case_studies")
+}
+
+enum CaseStudyStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+// ----- Contact Message / Lead -----
+model ContactMessage {
+  id          String               @id @default(uuid()) @db.Uuid
+  fullName    String               @map("full_name")
+  companyName String               @map("company_name")
+  email       String
+  whatsapp    String
+  service     ServiceCategory
+  description String               @db.Text
+  status      ContactMessageStatus @default(NEW)
+  createdAt   DateTime             @default(now()) @map("created_at")
+  updatedAt   DateTime             @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([service])
+  @@map("contact_messages")
+}
+
+enum ContactMessageStatus {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+}
+
+// ----- Shared Enums -----
+enum ServiceCategory {
+  FINANCE
+  MANAGEMENT
+  IT
+}

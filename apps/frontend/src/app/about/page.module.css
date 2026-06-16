@@ -1,0 +1,33 @@
+.page { padding-top: var(--header-height); }
+
+.hero {
+  padding: var(--space-20) 0 var(--space-12);
+  text-align: center;
+}
+.heroTitle { font-size: var(--text-5xl); max-width: 700px; margin: 0 auto var(--space-4); }
+.heroSubtitle { font-size: var(--text-lg); color: var(--color-text-secondary); max-width: 600px; margin: 0 auto; }
+
+.vmGrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+.vmCard { background: var(--color-bg-secondary); border-radius: var(--radius-xl); padding: var(--space-8); }
+.vmCard h3 { margin: var(--space-4) 0 var(--space-3); }
+.vmCard p { color: var(--color-text-secondary); }
+.vmIcon { font-size: 2rem; }
+.missionList { padding-left: var(--space-5); color: var(--color-text-secondary); display: flex; flex-direction: column; gap: var(--space-2); }
+
+.valuesBg { background: var(--color-bg-secondary); }
+.valuesGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); }
+.valueCard { text-align: center; padding: var(--space-6); background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-border-light); }
+.valueCard h4 { margin: var(--space-3) 0 var(--space-2); }
+.valueCard p { font-size: var(--text-sm); color: var(--color-text-secondary); }
+.valueIcon { font-size: 2rem; }
+
+.teamGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); }
+.teamCard { text-align: center; padding: var(--space-6); background: var(--color-surface); border: 1px solid var(--color-border-light); border-radius: var(--radius-xl); transition: all var(--transition-base); }
+.teamCard:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.teamCard h4 { margin-top: var(--space-4); }
+.teamAvatar { width: 80px; height: 80px; border-radius: var(--radius-full); background: var(--color-accent); color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: 800; font-size: var(--text-2xl); margin: 0 auto; }
+.teamRole { font-size: var(--text-sm); color: var(--color-accent); font-weight: 600; }
+.teamExpertise { font-size: var(--text-xs); color: var(--color-text-tertiary); }
+
+@media (max-width: 1024px) { .valuesGrid, .teamGrid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .vmGrid { grid-template-columns: 1fr; } .valuesGrid, .teamGrid { grid-template-columns: 1fr; } }

@@ -1,0 +1,209 @@
+.container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.chatWidget {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 350px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  transform-origin: bottom right;
+}
+
+.chatWidget.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.widgetHeader {
+  background: #2db742; /* WhatsApp green */
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.headerIcon {
+  width: 36px;
+  height: 36px;
+  fill: white;
+  flex-shrink: 0;
+}
+
+.headerContent h4 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: white;
+}
+
+.headerContent p {
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.95;
+  line-height: 1.4;
+  color: white;
+}
+
+.widgetBody {
+  padding: 1.5rem;
+  background: #f8f9fa;
+}
+
+.officeHours {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0 0 1rem 0;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  border-left: 3px solid #2db742;
+  transition: background 0.2s ease;
+}
+
+.contactItem:hover {
+  background: #e2e8f0;
+}
+
+.contactAvatar {
+  width: 45px;
+  height: 45px;
+  background: #dcf8c6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.contactAvatar svg {
+  width: 26px;
+  height: 26px;
+  fill: #2db742;
+}
+
+.contactInfo {
+  flex: 1;
+}
+
+.contactInfo h5 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 0.2rem 0;
+  color: var(--color-navy);
+}
+
+.contactInfo p {
+  font-size: 0.85rem;
+  margin: 0;
+  color: #64748b;
+}
+
+.buttonWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tooltip {
+  position: absolute;
+  right: calc(100% + 15px);
+  background: #f8f9fa;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+  color: var(--color-navy);
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+}
+
+/* Tooltip pointer */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  transform: translateY(-50%);
+  border-width: 6px 0 6px 6px;
+  border-style: solid;
+  border-color: transparent transparent transparent #f8f9fa;
+}
+
+.buttonWrapper:hover .tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.buttonWrapper.isOpen .tooltip {
+  display: none;
+}
+
+.toggleButton {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #2db742;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(45, 183, 66, 0.4);
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.toggleButton:hover {
+  transform: scale(1.05);
+}
+
+.toggleButton svg {
+  width: 34px;
+  height: 34px;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.toggleButton.open {
+  background: #2db742;
+}
+
+.toggleButton.open svg {
+  transform: rotate(90deg) scale(0.8);
+}
+
+@media (max-width: 480px) {
+  .chatWidget {
+    width: 300px;
+  }
+  .tooltip {
+    display: none;
+  }
+}

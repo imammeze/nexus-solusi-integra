@@ -1,0 +1,9 @@
+.page { padding-top: var(--header-height); }
+.hero { padding: var(--space-20) 0 var(--space-12); text-align: center; }
+.heroTitle { font-size: var(--text-5xl); max-width: 700px; margin: 0 auto var(--space-4); }
+.heroSubtitle { font-size: var(--text-lg); color: var(--color-text-secondary); max-width: 550px; margin: 0 auto; }
+
+.emptyState { text-align: center; padding: var(--space-16) 0; }
+.emptyIcon { font-size: 4rem; display: block; margin-bottom: var(--space-4); }
+.emptyState h3 { margin-bottom: var(--space-3); }
+.emptyState p { color: var(--color-text-secondary); max-width: 400px; margin: 0 auto; }
