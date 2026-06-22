@@ -1,9 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
-import { FloatingWhatsApp } from '@/components/ui/FloatingWhatsApp';
-import { ScrollToTop } from '@/components/ui/ScrollToTop';
 
 export const metadata: Metadata = {
   title: {
@@ -36,13 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <FloatingWhatsApp />
-        <ScrollToTop />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
