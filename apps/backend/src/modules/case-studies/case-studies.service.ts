@@ -2,12 +2,16 @@ import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import slugify from 'slugify';
 import { PrismaService } from '../../database/prisma.service';
 import { CreateCaseStudyDto, UpdateCaseStudyDto } from './dto/case-studies.dto';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class CaseStudiesService {
   private readonly logger = new Logger(CaseStudiesService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploadService: UploadService,
+  ) {}
 
   /** Create a new case study with auto-generated slug */
   async create(dto: CreateCaseStudyDto) {
@@ -87,25 +91,36 @@ export class CaseStudiesService {
 
   /** Update a case study */
   async update(id: string, dto: UpdateCaseStudyDto) {
-    await this.findById(id);
+    const oldCaseStudy = await this.findById(id);
 
     const updateData: any = { ...dto };
     if (dto.title) {
       updateData.slug = await this.generateUniqueSlug(dto.title, id);
     }
 
-    return this.prisma.caseStudy.update({
+    const updated = await this.prisma.caseStudy.update({
       where: { id },
       data: updateData,
     });
+
+    if (dto.coverImage && oldCaseStudy.coverImage && dto.coverImage !== oldCaseStudy.coverImage) {
+      await this.uploadService.deleteImageIfOrphaned(oldCaseStudy.coverImage);
+    }
+
+    return updated;
   }
 
   /** Delete a case study */
   async remove(id: string) {
-    await this.findById(id);
+    const caseStudy = await this.findById(id);
 
     await this.prisma.caseStudy.delete({ where: { id } });
     this.logger.log(`Case study deleted: ${id}`);
+
+    if (caseStudy.coverImage) {
+      await this.uploadService.deleteImageIfOrphaned(caseStudy.coverImage);
+    }
+
     return { deleted: true };
   }
 
