@@ -2,12 +2,16 @@ import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import slugify from 'slugify';
 import { PrismaService } from '../../database/prisma.service';
 import { CreateArticleDto, UpdateArticleDto } from './dto/articles.dto';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ArticlesService {
   private readonly logger = new Logger(ArticlesService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploadService: UploadService,
+  ) {}
 
   /** Create a new article with auto-generated slug */
   async create(dto: CreateArticleDto, authorId: string) {
@@ -97,7 +101,7 @@ export class ArticlesService {
 
   /** Update an article */
   async update(id: string, dto: UpdateArticleDto) {
-    await this.findById(id); // ensure exists
+    const oldArticle = await this.findById(id); // ensure exists
 
     const updateData: any = { ...dto };
 
@@ -106,19 +110,31 @@ export class ArticlesService {
       updateData.slug = await this.generateUniqueSlug(dto.title, id);
     }
 
-    return this.prisma.article.update({
+    const updated = await this.prisma.article.update({
       where: { id },
       data: updateData,
       include: { author: { select: { id: true, name: true } } },
     });
+
+    // Check if coverImage was replaced
+    if (dto.coverImage && oldArticle.coverImage && dto.coverImage !== oldArticle.coverImage) {
+      await this.uploadService.deleteImageIfOrphaned(oldArticle.coverImage);
+    }
+
+    return updated;
   }
 
   /** Delete an article */
   async remove(id: string) {
-    await this.findById(id); // ensure exists
+    const article = await this.findById(id); // ensure exists
 
     await this.prisma.article.delete({ where: { id } });
     this.logger.log(`Article deleted: ${id}`);
+
+    if (article.coverImage) {
+      await this.uploadService.deleteImageIfOrphaned(article.coverImage);
+    }
+
     return { deleted: true };
   }
 
