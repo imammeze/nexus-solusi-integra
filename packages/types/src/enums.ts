@@ -35,3 +35,10 @@ export enum UserRole {
   ADMIN = 'ADMIN',
   EDITOR = 'EDITOR',
 }
+
+/** Event status in the CMS */
+export enum EventStatus {
+  DRAFT = 'DRAFT',
+  PUBLISHED = 'PUBLISHED',
+  ARCHIVED = 'ARCHIVED',
+}

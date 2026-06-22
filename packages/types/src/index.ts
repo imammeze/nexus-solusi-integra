@@ -10,6 +10,7 @@ export {
   CaseStudyStatus,
   ContactMessageStatus,
   UserRole,
+  EventStatus,
 } from './enums';
 
 // Entity interfaces
@@ -22,6 +23,8 @@ export {
   type CaseStudyListItem,
   type IContactMessage,
   type ContactMessageListItem,
+  type IEvent,
+  type EventListItem,
 } from './entities';
 
 // DTOs
@@ -35,6 +38,8 @@ export {
   type UpdateCaseStudyDto,
   type CreateContactMessageDto,
   type UpdateContactStatusDto,
+  type CreateEventDto,
+  type UpdateEventDto,
 } from './dto';
 
 // API response wrappers
