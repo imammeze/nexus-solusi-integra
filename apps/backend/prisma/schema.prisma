@@ -23,6 +23,7 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   articles Article[]
+  events   Event[]
 
   @@map("users")
 }
@@ -118,4 +119,64 @@ enum ServiceCategory {
   FINANCE
   MANAGEMENT
   IT
+}
+
+// ----- Consultation Booking -----
+model Consultation {
+  id          String             @id @default(uuid()) @db.Uuid
+  fullName    String             @map("full_name")
+  whatsapp    String
+  service     ServiceCategory
+  description String             @db.Text
+  consultDate DateTime           @map("consult_date") @db.Date
+  startTime   String             @map("start_time")
+  endTime     String             @map("end_time")
+  status      ConsultationStatus @default(PENDING)
+  adminNotes  String?            @map("admin_notes") @db.Text
+  createdAt   DateTime           @default(now()) @map("created_at")
+  updatedAt   DateTime           @updatedAt @map("updated_at")
+
+  @@index([consultDate])
+  @@index([status])
+  @@map("consultations")
+}
+
+enum ConsultationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ----- Event -----
+model Event {
+  id          String          @id @default(uuid()) @db.Uuid
+  title       String
+  slug        String          @unique
+  description String          @db.Text
+  excerpt     String          @db.VarChar(500)
+  coverImage  String?         @map("cover_image")
+  category    ServiceCategory
+  eventDate   DateTime        @map("event_date") @db.Date
+  startTime   String          @map("start_time")
+  endTime     String          @map("end_time")
+  location    String
+  tags        String[]        @default([])
+  status      EventStatus     @default(DRAFT)
+  authorId    String          @map("author_id") @db.Uuid
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([category])
+  @@index([status])
+  @@index([slug])
+  @@index([eventDate])
+  @@map("events")
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
