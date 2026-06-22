@@ -5,6 +5,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ArticlesModule } from './modules/articles/articles.module';
 import { CaseStudiesModule } from './modules/case-studies/case-studies.module';
 import { ContactModule } from './modules/contact/contact.module';
+import { ConsultationsModule } from './modules/consultations/consultations.module';
+import { EventsModule } from './modules/events/events.module';
 import { UploadModule } from './modules/upload/upload.module';
 
 @Module({
@@ -23,7 +25,10 @@ import { UploadModule } from './modules/upload/upload.module';
     ArticlesModule,
     CaseStudiesModule,
     ContactModule,
+    ConsultationsModule,
+    EventsModule,
     UploadModule,
   ],
 })
 export class AppModule {}
+
