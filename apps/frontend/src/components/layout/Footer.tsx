@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import iconSrc from '@/app/icon.png';
 import styles from './Footer.module.css';
 
 const FOOTER_LINKS = {
@@ -22,7 +24,7 @@ export function Footer() {
         {/* Brand Column */}
         <div className={styles.brand}>
           <div className={styles.logo}>
-            <span className={styles.logoIcon}>N</span>
+            <Image src={iconSrc} alt="Nexus Logo" className={styles.logoImg} />
             <span className={styles.logoText}>Nexus Solusi Integra</span>
           </div>
           <p className={styles.description}>
