@@ -4,6 +4,7 @@ import { useState, useEffect, FormEvent, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { fetchEventById, updateEvent, uploadFile } from '@/lib/api';
+import { RichTextEditor } from '@/components/ui/RichTextEditor';
 import styles from '../../../admin.module.css';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
@@ -139,24 +140,20 @@ export default function EditEventPage() {
 
           <div className={styles.formGroupFull}>
             <label className={styles.formLabelDark}>Ringkasan</label>
-            <textarea
-              className={`${styles.formInputDark} ${styles.formTextarea}`}
-              style={{ minHeight: '80px' }}
+            <RichTextEditor
               value={form.excerpt}
-              onChange={(e) => setForm({ ...form, excerpt: e.target.value })}
+              onChange={(html) => setForm({ ...form, excerpt: html })}
               placeholder="Ringkasan singkat event..."
-              required
+              minHeight="small"
             />
           </div>
 
           <div className={styles.formGroupFull}>
             <label className={styles.formLabelDark}>Deskripsi</label>
-            <textarea
-              className={`${styles.formInputDark} ${styles.formTextarea}`}
+            <RichTextEditor
               value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              onChange={(html) => setForm({ ...form, description: html })}
               placeholder="Tulis deskripsi event di sini..."
-              required
             />
           </div>
 
