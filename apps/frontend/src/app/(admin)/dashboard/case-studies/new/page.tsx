@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createCaseStudy } from '@/lib/api';
+import { RichTextEditor } from '@/components/ui/RichTextEditor';
 import styles from '../../../admin.module.css';
 
 export default function NewCaseStudyPage() {
@@ -55,15 +56,15 @@ export default function NewCaseStudyPage() {
           </div>
           <div className={styles.formGroupFull}>
             <label className={styles.formLabelDark}>Tantangan</label>
-            <textarea className={`${styles.formInputDark} ${styles.formTextarea}`} style={{ minHeight: '100px' }} value={form.challenge} onChange={(e) => setForm({ ...form, challenge: e.target.value })} placeholder="Jelaskan tantangan yang dihadapi klien..." required />
+            <RichTextEditor value={form.challenge} onChange={(html) => setForm({ ...form, challenge: html })} placeholder="Jelaskan tantangan yang dihadapi klien..." minHeight="small" />
           </div>
           <div className={styles.formGroupFull}>
             <label className={styles.formLabelDark}>Solusi</label>
-            <textarea className={`${styles.formInputDark} ${styles.formTextarea}`} style={{ minHeight: '100px' }} value={form.solution} onChange={(e) => setForm({ ...form, solution: e.target.value })} placeholder="Jelaskan solusi yang diberikan..." required />
+            <RichTextEditor value={form.solution} onChange={(html) => setForm({ ...form, solution: html })} placeholder="Jelaskan solusi yang diberikan..." minHeight="small" />
           </div>
           <div className={styles.formGroupFull}>
             <label className={styles.formLabelDark}>Dampak / Hasil</label>
-            <textarea className={`${styles.formInputDark} ${styles.formTextarea}`} style={{ minHeight: '100px' }} value={form.impact} onChange={(e) => setForm({ ...form, impact: e.target.value })} placeholder="Jelaskan dampak positif dari solusi..." required />
+            <RichTextEditor value={form.impact} onChange={(html) => setForm({ ...form, impact: html })} placeholder="Jelaskan dampak positif dari solusi..." minHeight="small" />
           </div>
           <div>
             <label className={styles.formLabelDark}>Kategori</label>
