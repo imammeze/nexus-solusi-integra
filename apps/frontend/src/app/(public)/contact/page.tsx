@@ -42,7 +42,7 @@ export default function ContactPage() {
                     <span className={styles.infoIcon}>📧</span>
                     <div>
                       <p className={styles.infoLabel}>Email</p>
-                      <p className={styles.infoValue}>info@nexus-solusi.com</p>
+                      <p className={styles.infoValue}>admin@nexusolusi.id</p>
                     </div>
                   </div>
                   <div className={styles.infoItem}>
@@ -63,7 +63,7 @@ export default function ContactPage() {
                     <span className={styles.infoIcon}>📍</span>
                     <div>
                       <p className={styles.infoLabel}>Alamat</p>
-                      <p className={styles.infoValue}>Jakarta, Indonesia</p>
+                      <p className={styles.infoValue}>Purwokerto, Indonesia</p>
                     </div>
                   </div>
                 </div>
