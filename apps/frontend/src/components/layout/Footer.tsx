@@ -58,9 +58,9 @@ export function Footer() {
         {/* Contact info */}
         <div className={styles.contactCol}>
           <h4 className={styles.columnTitle}>Kontak</h4>
-          <p className={styles.contactItem}>📧 info@nexus-solusi.com</p>
+          <p className={styles.contactItem}>📧 admin@nexusolusi.id</p>
           <p className={styles.contactItem}>📞 +62 21 1234 5678</p>
-          <p className={styles.contactItem}>📍 Jakarta, Indonesia</p>
+          <p className={styles.contactItem}>📍 Purwokerto, Indonesia</p>
         </div>
       </div>
 
