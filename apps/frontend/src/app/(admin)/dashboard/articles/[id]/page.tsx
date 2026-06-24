@@ -4,6 +4,7 @@ import { useState, useEffect, FormEvent, useRef, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { fetchArticleById, updateArticle, uploadFile } from '@/lib/api';
+import { RichTextEditor } from '@/components/ui/RichTextEditor';
 import styles from '../../../admin.module.css';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
@@ -123,22 +124,20 @@ export default function EditArticlePage({ params }: { params: Promise<{ id: stri
 
           <div className={styles.formGroupFull}>
             <label className={styles.formLabelDark}>Ringkasan</label>
-            <textarea
-              className={`${styles.formInputDark} ${styles.formTextarea}`}
-              style={{ minHeight: '80px' }}
+            <RichTextEditor
               value={form.excerpt}
-              onChange={(e) => setForm({ ...form, excerpt: e.target.value })}
-              required
+              onChange={(html) => setForm({ ...form, excerpt: html })}
+              placeholder="Ringkasan singkat artikel..."
+              minHeight="small"
             />
           </div>
 
           <div className={styles.formGroupFull}>
             <label className={styles.formLabelDark}>Konten</label>
-            <textarea
-              className={`${styles.formInputDark} ${styles.formTextarea}`}
+            <RichTextEditor
               value={form.content}
-              onChange={(e) => setForm({ ...form, content: e.target.value })}
-              required
+              onChange={(html) => setForm({ ...form, content: html })}
+              placeholder="Tulis konten artikel di sini..."
             />
           </div>
 
