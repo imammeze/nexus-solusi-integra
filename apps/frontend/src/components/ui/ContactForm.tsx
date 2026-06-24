@@ -99,17 +99,21 @@ export function ContactForm() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="whatsapp" className="form-label">Nomor WhatsApp *</label>
-          <input
-            id="whatsapp"
-            name="whatsapp"
-            type="tel"
-            className="form-input"
-            value={formData.whatsapp}
-            onChange={handleChange}
-            required
-            placeholder="+62 812 3456 7890"
-          />
+          <label htmlFor="whatsapp" className="form-label">Nomer Hp Aktif *</label>
+          <div className={styles.inputGroup}>
+            <span className={styles.inputPrefix}>+62</span>
+            <input
+              id="whatsapp"
+              name="whatsapp"
+              type="tel"
+              className={`form-input ${styles.inputWithPrefix}`}
+              value={formData.whatsapp}
+              onChange={handleChange}
+              required
+              placeholder="Contoh: 812345678"
+            />
+          </div>
+          <p className={styles.inputHint}>Masukkan nomor tanpa awalan 0 (contoh: 812345678).</p>
         </div>
       </div>
 
